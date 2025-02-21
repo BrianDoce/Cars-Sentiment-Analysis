@@ -1,44 +1,61 @@
 # Toyota and Honda Sentiment Analysis
-This is a project I created using data I web scraped from Edmunds.com where I performed sentiment analysis on Toyota and Honda cars.
-
-# Relationship Between Calories and Ratings
-This is the final project for the UCSD class DSC80. For this project, students were tasked to conduct an open-ended investigation using everything we learned.
+This is a project I created using data I web scraped from Edmunds.com where I performed sentiment analysis on Toyota and Honda cars' reviews.
 
 Author: Brian Docena
 
 # Introduction
-When it comes to losing weight, the main thought that goes through peoples' minds are going months or years eating
-bland, tasteless food. This is the main obstacle that holds people back from reaching their goals as they consume food that they absolutely dread. This problem is what interested me into finding the relationship between calories and ratings as I wanted to see if there was any validity to the idea that healthy food can't taste good. For this I used data from Food.com, an online recipe platform where users can submit their recipes, with its nutritional information, user ratings, and reviews. Recipes is a subset of data from this website, which 
-contains 83782 rows and the following columns:
+The website I received the data from was Edmunds.com, an online resource for automative information that provides enthusiasts with reviews, pricing, and comparison tools. In order to perform analysis on the data, I web scraped the website using Selenium and BeautifulSoup. The 
+main goal for this project was to give me some insight on a hypothetical. If I were to buy
+a car, what should it be? I chose to focus on Toyota and Honda cars because they are my 
+favorite manufacturers as their cars makes me feel nostalgic.
 
-
-| Column | Description |
-| ----------- | ----------- |
-| 'name' | Recipe name |
-| 'id' | Recipe ID |
-| 'minutes' | Minutes to Prepare Recipe |
-| 'contributor_id' | User ID who submitted this recipe |
-| 'submitted' | Date recipe was submitted |
-| 'tags' | Food.com tags for recipe |
-| 'nutrition' | Nutrition information in the form [calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]; PDV stands for “percentage of daily value” |
-| 'n_steps' | Number of steps in recipe |
-| 'steps' | Text for recipe steps, in order |
-| 'description' | User-provided description |
-
-
-Interactions is another subset of the data containing 731927 rows and the following columns:
-
+df_toyota_details is a dataset about each model of Toyota cars, which 
+contains 39 rows and the following columns:
 
 | Column | Description |
 | ----------- | ----------- |
-| 'user_id' | User ID |
-| 'recipe_id' | Recipe ID |
-| 'date' | Date of interaction |
-| 'rating' | Rating given |
-| 'review' | Date text |
+| 'car_title' | The model of the car |
+| 'price' | The cost of the car |
+| 'owner_rating' | The overall rating owners gave to the car |
 
-Given these datasets, I wanted to break down the information in the nutrition column into separate columns because
-I felt that the information within it had potential to extract other useful insights. I also added another column called calories_type, which grouped recipes into either one of two groups: High Calories (if calories were greater than or equal to 500) or Low Calories (if calories were less than 500). The most significant columns were calories (#) and rating. Along with values such as n_steps, minutes, etc.
+df_toyota_reviews has the information about each review for Toyota cars, which
+contains 1110 rows and the following columns:
+
+| Column | Description |
+| ----------- | ----------- |
+| 'car_title' | The model of the car |
+| 'reviews' | User reviews |
+| 'date' | The date the review was posted |
+| 'user_rating' | The rating users gave on their review |
+| 'helpful numerator' | How helpful the review was |
+| 'helpful_denomindator' | Total amount interacted with review |
+
+Similarly, df_honda_details is another subset of the data containing 20 rows and the following columns:
+
+| Column | Description |
+| ----------- | ----------- |
+| 'car_title' | The model of the car |
+| 'price' | The cost of the car |
+| 'owner_rating' | The overall rating owners gave to the car |
+
+df_honda_reviews has the information about each review for Honda cars containing 675 rows and
+the following columns:
+
+| Column | Description |
+| ----------- | ----------- |
+| 'car_title' | The model of the car |
+| 'price' | The cost of the car |
+| 'owner_rating' | The overall rating owners gave to the car |
+| 'reviews' | User reviews |
+| 'date' | The date the review was posted |
+| 'user_rating' | The rating users gave on their review |
+| 'helpful numerator' | How helpful the review was |
+| 'helpful_denomindator' | Total amount interacted with review |
+
+Given these datasets, I knew I wanted to merge them based on their corresponding car model, so
+that I would eventually have two dataframes: one with Toyota cars and the other with Honda cars.
+There was also some data cleaning to handle as some reviews were null and duplicated because 
+if a car was the same model, but a different year, the reviews would be the same.
 
 # Data Cleaning and Exploration
 For data cleaning, I did the following steps:
