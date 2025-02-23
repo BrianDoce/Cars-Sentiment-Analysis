@@ -13,16 +13,16 @@ contains 39 rows and the following columns:
 
 | Column | Description |
 | ----------- | ----------- |
-| 'car_title' | The model of the car |
+| 'car_model' | The model of the car |
 | 'price' | The cost of the car |
-| 'owner_rating' | The overall rating owners gave to the car |
+| 'average_rating' | The average rating of the model |
 
 df_toyota_reviews has the information about each review for Toyota cars, which
 contains 1110 rows and the following columns:
 
 | Column | Description |
 | ----------- | ----------- |
-| 'car_title' | The model of the car |
+| 'car_model' | The model of the car |
 | 'reviews' | User reviews |
 | 'date' | The date the review was posted |
 | 'user_rating' | The rating users gave on their review |
@@ -33,16 +33,16 @@ Similarly, df_honda_details is another subset of the data containing 20 rows and
 
 | Column | Description |
 | ----------- | ----------- |
-| 'car_title' | The model of the car |
+| 'car_model' | The model of the car |
 | 'price' | The cost of the car |
-| 'owner_rating' | The overall rating owners gave to the car |
+| 'average_rating' | The average rating owners gave to the car |
 
 df_honda_reviews has the information about each review for Honda cars containing 675 rows and
 the following columns:
 
 | Column | Description |
 | ----------- | ----------- |
-| 'car_title' | The model of the car |
+| 'car_model' | The model of the car |
 | 'price' | The cost of the car |
 | 'owner_rating' | The overall rating owners gave to the car |
 | 'reviews' | User reviews |
@@ -58,39 +58,55 @@ if a car was the same model, but a different year, the reviews would be the same
 
 # Data Cleaning and Exploration
 For data cleaning, I did the following steps:
-1. Left merge the recipes and interactions datasets on id and recipe_id
-    - This makes it easier to work with recipes and their corresponding ratings.
+1. I dropped the duplicated and null reviews from df_toyota_details and df_honda_details.
+    - I wanted to perform sentiment analysis on the reviews, so having duplicated reviews
+    or reviews that were null had no value for me. This led me to drop these rows.
 
-2. Fill all ratings of 0 with np.nan
-    - I filled all ratings of 0 with np.nan because prior to filling them, 0 represented the recipes were missing ratings.
-    This can cause problems with my analysis as 0 represents the lowest rating and can indicate that users didn't enjoy the recipe.
+2. I merged df_toyota_details and df_toyota_reviews on the car_model to create the df_toyota dataframe.
 
-3. Added column 'average_rating'.
+3. I merged df_honda_details and df_honda_reviews on the car_model to create the df_honda dataframe.
 
-4. Broke the nutrition column down into a column for each of its values (calories (#), total fat (PDV), etc.)
-    - I broke the column down into separate columns because I believed that the numerical values it held would be important for analysis.
+4. I concated the df_honda and df_toyota dataframe into one dataframe called df_cars to make 
+it easier to clean the other columns.
 
-5. Dropped nutrition column
-    - I didn't think it was necessary after breaking it down.
+5. I created a function to clean the price column from a string to a float.
+    - Before the cleaning the data was in a format where the price included $ and ,. Having
+    the data in this format is not useful because price represents a numeric value, not a string.
 
-6.  Converted 'submitted' and 'date' columns into datetime object.
-    - I wasn't sure if I would use these columns, but if I did, I wanted to make it easier to use.
+6.  I created a function to clean the average_rating column.
+    - Similarly, the average_rating column was formatted as a string, so I thought it was best
+    convert it into a numeric column.
 
-7. Added 'calories_type' 
-    - A column which labeled recipes as High Calories if their calories was greater than or equal to 500 and 
-    Low Calories if they weren't.
+7. I transformed the data column into DateTime, so that the column is more useful if I choose
+to use it.
 
 The final result is a dataframe with 234428 rows and 25 columns.
 (Note: the following visualization is a portion of the columns)
 
-| name                                 |     id |   minutes |   n_steps |   rating |   calories (#) |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) | calories_type   |
-|:-------------------------------------|-------:|----------:|----------:|---------:|---------------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|:----------------|
-| 1 brownies in the world    best ever | 333281 |        40 |        10 |        4 |          138.4 |                10 |            50 |              3 |               3 |                    19 |                     6 | Low Calories    |
-| 1 in canada chocolate chip cookies   | 453467 |        45 |        12 |        5 |          595.1 |                46 |           211 |             22 |              13 |                    51 |                    26 | High Calories   |
-| 412 broccoli casserole               | 306168 |        40 |         6 |        5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 | Low Calories    |
-| 412 broccoli casserole               | 306168 |        40 |         6 |        5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 | Low Calories    |
-| 412 broccoli casserole               | 306168 |        40 |         6 |        5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 | Low Calories    |
-
+| car_model                     |   price |   average_rating | reviews                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | date                |   user_rating |   helpful_numerator |   helpful_denominator |
+|:------------------------------|--------:|-----------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------|--------------:|--------------------:|----------------------:|
+| 2025 Toyota Highlander Hybrid |   48086 |              4.3 | The Honda Odyssey with 200,000 miles in 9 years was a really good car. When the time came, I had to choose a new car, and I decided to buy a hybrid car. The reason for this is that the fuel efficiency is good, the engine operates only when necessary, so there is little noise, and as a result, the life of various parts is long, and I liked the fact that the brakes last a long time through regenerative braking. However, Honda didn't have much choice of hybrid vehicles, so I chose Toyota's vehicle, which is the strongest in hybrid technology. | 2023-04-05 00:00:00 |             5 |                  14 |                    15 |
+|                               |         |                  | I chose the Highlander as it is a vehicle that I often drive for work, is good for riding with my family, can carry a lot of luggage, and does not have any problems on snowy roads and mountain roads in winter.                                                                                                                                                                                                                                                                                                                                                 |                     |               |                     |                       |
+|                               |         |                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                     |               |                     |                       |
+|                               |         |                  | The results were beyond expectations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                     |               |                     |                       |
+|                               |         |                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                     |               |                     |                       |
+|                               |         |                  | I'm amazed that a vehicle this large can get 40 mpg when driven on fuel economy. And the interior design, functions such as wireless Android Auto, spacious interior space, and quiet driving really give me new pleasure every day.                                                                                                                                                                                                                                                                                                                              |                     |               |                     |                       |
+|                               |         |                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                     |               |                     |                       |
+|                               |         |                  | I don't have much interest in cars and I don't enjoy driving much, so even if I buy a new car, I feel good for a while at first because it's a new car, but I think it's the first time I've ever enjoyed driving like this.                                                                                                                                                                                                                                                                                                                                      |                     |               |                     |                       |
+|                               |         |                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                     |               |                     |                       |
+|                               |         |                  | I don't change cars often. So, through a lot of research, I choose a car that I can ride without problems for a long time, and I am sure that the Toyota Highlander is exactly what I wanted.                                                                                                                                                                                                                                                                                                                                                                     |                     |               |                     |                       |
+|                               |         |                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                     |               |                     |                       |
+|                               |         |                  | Thank you Toyota                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                     |               |                     |                       |
+| 2025 Toyota Highlander Hybrid |   48086 |              4.3 | We purchased the 2023 Highlander Platinum AWD Hybrid.  The gas mileage started at 28MPG.  This is a far cry from EPA ratings but understand there are variables that come into play.  That being said, I am now up to 32.6 so it is improving but question if it will ever get better since I have been stuck on this mileage for a while now.                                                                                                                                                                                                                    | 2023-07-10 00:00:00 |             2 |                  26 |                    31 |
+|                               |         |                  | The heated seats are weak at best in the winter as are the fan cooled seats in the summer.  Very disappointing.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                     |               |                     |                       |
+|                               |         |                  | The premium sound system is also a disappointment.  Just not the dynamic system I expected for Highlander.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                     |               |                     |                       |
+|                               |         |                  | The seating is OK but for the money we paid, I should have waited for the new Lexus.  A much better value, much more comfortable and a much better vehicle in general.                                                                                                                                                                                                                                                                                                                                                                                            |                     |               |                     |                       |
+|                               |         |                  | I do not recommend this vehicle as a value.  We were just too quick to purchase and recommend others to shop around a bit as this is a very crowded category of vehicle.                                                                                                                                                                                                                                                                                                                                                                                          |                     |               |                     |                       |
+|                               |         |                  | By the way, did I mention I am still waiting for my second ignition key 8 months after I purchased the car.  Chip shortage was the excuse.  OK, I can be patient but 8 months?  That is ridiculous.                                                                                                                                                                                                                                                                                                                                                               |                     |               |                     |                       |
+|                               |         |                  | Keep looking including the Lexus Hybrid which is priced around the same.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                     |               |                     |                       |
+| 2025 Toyota Highlander Hybrid |   48086 |              4.3 | First Toyota.  It is noisy (wind and road noise), tinny and...Unless you subscribe (after one year) to their connected service...every time you get in the car..a MARKETING Screen pops up and says Experience Drive Connect.  You CANNOT (I confirmed with Toyota Customer Service) get to the Toyota map (gee...I paid for that nav system and that large screen).  You have to use Apple Car Play.  I’d just like to see the map...I don’t need live traffic...Complete rip off...and I am shocked Toyota does this. Mine is a Limited Hybrid                  | 2024-05-07 00:00:00 |             3 |                   8 |                     9 |
+| 2025 Toyota Highlander Hybrid |   48086 |              4.3 | Great vehicle in every way but engine being sluggish.  The partnership with BMW on interior seats and finish is comfortable and luxurioius.  The underperformance of acceleration with the 4 cyliner non turbo just isn't enough power.  The 6 cylinder was better.                                                                                                                                                                                                                                                                                               | 2023-11-06 00:00:00 |             3 |                  16 |                    20 |
+| 2025 Toyota Highlander Hybrid |   48086 |              4.3 | Love everything about this vehicle.  Purchased it in December 2023.  Beautiful blizzard pearl paint with special black wheels and trim accents.  Acceleration and MPGs are both great.  I get 36-40 MPGs depending on the driving conditions.  Very quiet inside and the engine is also really quiet even when accelerating.  It also has a really tight turning radius for such a large vehicle.  We have no kids living with us, so the 3-row is not a factor.                                                                                                  | 2024-03-01 00:00:00 |             5 |                   4 |                     4 |
 # Univariate Analysis
 For my univariate analysis, I wanted to see the distribution of calories to get a better understanding
 of the values within the column. From the visualization, we can see that the distribution is skewed right 
