@@ -103,6 +103,7 @@ To go further in depth I wanted to run TF-IDF on user reviews. TF-IDF or Text Fr
 from reviews would best represent the car model.
 
 After performing TF-IDF, this is what the first few rows looks like:
+
 | car_model                     | most_important_word   |
 |:------------------------------|:----------------------|
 | 2025 Toyota Highlander Hybrid | choose                |
@@ -186,6 +187,9 @@ Alternatively, from the sporadic nature of the visualizations, we can see that t
 
 # Summary of Each Car
 To end my sentiment analysis project, I created a word cloud for Toyota and Honda that contains the words that were commonly found in their customer reviews.
+
+Here is the word cloud for Toyota:
 ![wordcloud toyota](./assets/image-13.png)
 
+Here is the word cloud for Honda:
 ![wordcloud honda](./assets/image-14.png)
