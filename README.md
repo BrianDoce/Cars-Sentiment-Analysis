@@ -107,10 +107,20 @@ The final result is a dataframe with 234428 rows and 25 columns.
 | 2025 Toyota Highlander Hybrid |   48086 |              4.3 | First Toyota.  It is noisy (wind and road noise), tinny and...Unless you subscribe (after one year) to their connected service...every time you get in the car..a MARKETING Screen pops up and says Experience Drive Connect.  You CANNOT (I confirmed with Toyota Customer Service) get to the Toyota map (gee...I paid for that nav system and that large screen).  You have to use Apple Car Play.  I’d just like to see the map...I don’t need live traffic...Complete rip off...and I am shocked Toyota does this. Mine is a Limited Hybrid                  | 2024-05-07 00:00:00 |             3 |                   8 |                     9 |
 | 2025 Toyota Highlander Hybrid |   48086 |              4.3 | Great vehicle in every way but engine being sluggish.  The partnership with BMW on interior seats and finish is comfortable and luxurioius.  The underperformance of acceleration with the 4 cyliner non turbo just isn't enough power.  The 6 cylinder was better.                                                                                                                                                                                                                                                                                               | 2023-11-06 00:00:00 |             3 |                  16 |                    20 |
 | 2025 Toyota Highlander Hybrid |   48086 |              4.3 | Love everything about this vehicle.  Purchased it in December 2023.  Beautiful blizzard pearl paint with special black wheels and trim accents.  Acceleration and MPGs are both great.  I get 36-40 MPGs depending on the driving conditions.  Very quiet inside and the engine is also really quiet even when accelerating.  It also has a really tight turning radius for such a large vehicle.  We have no kids living with us, so the 3-row is not a factor.                                                                                                  | 2024-03-01 00:00:00 |             5 |                   4 |                     4 |
-# Univariate Analysis
-For my univariate analysis, I wanted to see the distribution of calories to get a better understanding
-of the values within the column. From the visualization, we can see that the distribution is skewed right 
-and that most of the calories fall within the 250 - 750 range.
+
+# Sentiment Analysis
+For my project I used NLTK Vader to break down user reviews into positive, negative, and neutral values. Compound is a value on a scale from -1 (negative) to 1 (positive) that NLTK Vader assigns to a user's review. This value essentially determines whether a review is positive or negative.
+
+Here is a dataframe that demonstrates the statistics for each model within the dataset 
+and their corresponding user's rating and their sentiment.
+
+| car_model                           |   ('user_rating', 'mean') |   ('user_rating', 'max') |   ('user_rating', 'min') |   ('user_rating', 'std') |   ('user_rating', 'count') |   ('compound', 'mean') |   ('compound', 'max') |   ('compound', 'min') |
+|:------------------------------------|--------------------------:|-------------------------:|-------------------------:|-------------------------:|---------------------------:|-----------------------:|----------------------:|----------------------:|
+| 2025 Toyota GR Corolla              |                   4.875   |                        5 |                        4 |                 0.353553 |                          8 |               0.718562 |                0.9967 |               -0.2068 |
+| 2024 Toyota Prius Prime             |                   4.83333 |                        5 |                        4 |                 0.389249 |                         12 |               0.517767 |                0.9992 |               -0.225  |
+| 2025 Toyota Land Cruiser            |                   4.78571 |                        5 |                        3 |                 0.578934 |                         14 |               0.755557 |                0.9969 |                0      |
+| 2024 Toyota Grand Highlander Hybrid |                   4.76471 |                        5 |                        3 |                 0.562296 |                         17 |               0.785335 |                0.9987 |                0.1027 |
+| 2024 Toyota 4Runner                 |                   4.73469 |                        5 |                        1 |                 0.784631 |                         49 |               0.612676 |                0.9927 |               -0.9839 |
 
 <iframe
   src="assets/dist-calories.html"
