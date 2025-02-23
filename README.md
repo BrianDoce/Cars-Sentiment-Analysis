@@ -118,7 +118,16 @@ Here is a few of the rows of the resulting dataframe:
 ![dataframe of important words for each car model.](image-1.png)
 
 # Exploratory Data Analysis
+
+## Testing Sentiment Analysis
+To test if my sentiment analysis was working as expected, I created this visualization:
+![compound score vs. rating](image-5.png)
+In this visualization, we can see that sentiment analysis is working as expected. The ratings associated with being negative (1-2) have the lowest compound rating with ratings of 1 having the lowest and positive ratings (4-5) have the highest.
+
+## Relationship Between Review Length and Customer Sentiment
+
 Here are some statistics about user review lengths:
+
 |       |   review_length |
 |:------|----------------:|
 | count |        1323     |
@@ -129,9 +138,11 @@ Here are some statistics about user review lengths:
 | 50%   |         339     |
 | 75%   |         740.5   |
 | max   |        3731     |
+
 Here we can see that the average length of a review is around 565 characters long where the shortest review is 4 characters long and the highest is 3731 characters.
 
 Here are some statistics about the sentiment of the reviews:
+
 |       |    compound |
 |:------|------------:|
 | count | 1323        |
@@ -142,14 +153,40 @@ Here are some statistics about the sentiment of the reviews:
 | 50%   |    0.7814   |
 | 75%   |    0.93605  |
 | max   |    0.9992   |
+
 Here we can see that the average review has a positive sentiment (~0.5) and that most reviews
 are generally positive.
 
 While I was doing this project, I was curious on the relationship between the length of a review and rating. This led me to create the following visualization:
 ![histogram of length and rating](image-2.png)
 
+From this visualization we can see that there is a relationship between review length and average rating where individuals who rate the vehicle higher writer tend to write longer reviews on average.
 
+Knowing that higher ratings tend to be longer in length, I was curious on the opposite. I wanted to see a review that was longer in length, but also negative.
+![long text, but negative](image-3.png)
 
+## Does Price Have An Affect on Customer Sentiment?
+![Customer Sentiment and Pricing Visualization](image-6.png)
+We can see in this visualization that there is some positive correlation between customers rating and the price of the car.
 
+## Checking Sentiment Changes of Cars
+For this section, I wanted to see how the sentiment of certain cars and the ratings users have given them has changed over time.
 
+![sentiment for 2025 camry over time](image-7.png)
 
+![rating for 2025 camry over time](image-8.png)
+From this we can see that the Camry has some periods where users thought of the car negatively and the rating for the car has reflected that. However, people generally think of the Camry in a positive light and rate it highly.
+
+![sentiment honda civic over time](image-9.png)
+![average rating of civic over time](image-11.png)
+
+![sentiment of prius over time](image-10.png)
+![average rating of prius over time](image-12.png)
+
+Alternatively, from the sporadic nature of the visualizations, we can see that the opinions of the Civic and Prius are divided.
+
+# Summary of Each Car
+To end my sentiment analysis project, I created a word cloud for Toyota and Honda that contains the words that were commonly found in their customer reviews.
+![wordcloud toyota](image-13.png)
+
+![wordcloud honda](image-14.png)
