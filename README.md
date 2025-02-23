@@ -1,4 +1,3 @@
-# Toyota and Honda Sentiment Analysis
 This is a project I created using data I web scraped from Edmunds.com where I performed sentiment analysis on Toyota and Honda cars' reviews.
 
 Author: Brian Docena
@@ -83,7 +82,7 @@ to use it.
 
 The final result is a dataframe with 1323 rows and 8 columns.
 (Note: the following visualization is a portion of the columns)
-![image of dataframe](/assets/image.png)
+![image of dataframe](assets/image.png)
 
 # Sentiment Analysis
 For my project I used NLTK Vader to break down user reviews into positive, negative, and neutral values. Compound is a value on a scale from -1 (negative) to 1 (positive) that NLTK Vader assigns to a user's review. This value essentially determines whether a review is positive or negative. I also added a length of a review column as I thought it would be helpful to see the relationship between sentiment and review length or rating of a car model and the length of the review.
